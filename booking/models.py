@@ -3,29 +3,7 @@ from django.db import models
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
-
-# Create your models here.
-class User(AbstractUser):
-    email = models.EmailField(unique=True)
-    is_admin = models.BooleanField(default=False)
-
-    groups = models.ManyToManyField(
-        Group,
-        related_name='custom_user_set',  # Додаємо related_name
-        blank=True,
-        help_text='The groups this user belongs to.',
-        related_query_name='user',
-    )
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name='custom_user_set',  # Додаємо related_name
-        blank=True,
-        help_text='Specific permissions for this user.',
-        related_query_name='user',
-    )
-
-    def __str__(self):
-        return self.username
+from django.conf import settings
 
 class RoomType(models.Model):
     name = models.CharField(max_length=70)
@@ -58,7 +36,7 @@ class Room(models.Model):
         ordering = ['number']
 
 class Booking(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     start_time = models.DateTimeField()
