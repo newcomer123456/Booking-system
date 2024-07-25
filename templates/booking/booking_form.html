@@ -1,0 +1,24 @@
+{% extends "booking/base.html" %}
+
+{% block content%}
+<form method='POST' action="{% url 'bookroom' %}" class="form-group">
+    {%csrf_token%}
+        <div class="mb-3">
+            <label for="hotel" class="form-label">Hotel:</label>
+            <input type="text" id="hotel" name="hotel" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="room-number" class="form-label">Room number:</label>
+            <input type="text" id="room-number" name="room-number" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="start-time" class="form-label">Start time:</label>
+            <input type="datetime-local" id="start-time" name="start-time" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="end-time" class="form-label">End time:</label>
+            <input type="datetime-local" id="end-time" name="end-time" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Book this room</button>
+</form>
+{% endblock %}
