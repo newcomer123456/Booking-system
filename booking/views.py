@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect
-from booking.models import Room, Booking, RoomType, User, Availability, Hotel
+from booking.models import Room, Booking, RoomType, Availability, Hotel
 from django.http import HttpResponse
 
 # Create your views here.
 def index(request):
-    context = {
-        "render_string": "Hello, world!"
-    }
+    context = {}
     return render(request, template_name="booking/index.html", context=context)
 
 def rooms_list(request):

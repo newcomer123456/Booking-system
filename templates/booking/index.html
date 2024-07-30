@@ -1,13 +1,18 @@
 {% extends "booking/base.html" %}
 
-{% block content%}
-    {{ render_string }}
+{% block content %}
+<div class="container mt-5">
     {% if request.user.is_authenticated %}
         <h1>Hello, authenticated user!</h1>
+        <a href="{% url 'logout' %}" class="btn btn-primary mt-3">Logout</a>
+        {% if request.user.is_superuser %}
+            <a href="{% url 'admin' %}" class="btn btn-primary mt-3">Admin</a>
+        {% endif %}
     {% else %}
         <h1>Hello, unauthenticated user!</h1>
+        <a href="{% url 'register' %}" class="btn btn-primary mt-3">Register</a>
+        <br>
+        <a href="{% url 'login' %}" class="btn btn-secondary mt-3">Login</a>
     {% endif %}
-    <a href="{% url 'rooms-list' %}">Go to rooms list</a>
-    </br>
-    <a href="{% url 'bookroom' %}">Go to rooms booking</a>
+</div>
 {% endblock %}

@@ -1,10 +1,21 @@
 {% extends "booking/base.html" %}
 
-{% block content%}
-    {% for room in rooms %}
-        <h1>Room #{{ room.number }}</h1>
-        <h2>Capacity: {{ room.capacity }}</h2>
-        <p>Location: {{ room.location }}</p>
-        <p>Description: {{ room.description }}</p>
-    {% endfor %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Rooms List</h2>
+    <div class="row">
+        {% for room in rooms %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Room #{{ room.number }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Capacity: {{ room.capacity }}</h6>
+                    <p class="card-text">Location: {{ room.location }}</p>
+                    <p class="card-text">Description: {{ room.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
