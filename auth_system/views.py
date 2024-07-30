@@ -3,6 +3,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from auth_system.forms import CustomUserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 def register(request):
     if request.method == 'POST':
@@ -44,4 +46,7 @@ def loginview(request):
 def logoutview(request):
     logout(request)
     return redirect('index')               
-             
+
+@login_required
+def custom_admin_dashboard(request):
+    return render(request, 'auth_system/custom_dashboard.html')

@@ -6,7 +6,7 @@
         <h1>Hello, authenticated user!</h1>
         <a href="{% url 'logout' %}" class="btn btn-primary mt-3">Logout</a>
         {% if request.user.is_superuser %}
-            <a href="{% url 'admin' %}" class="btn btn-primary mt-3">Admin</a>
+            <a href="/admin/" class="btn btn-primary mt-3">Admin</a>
         {% endif %}
     {% else %}
         <h1>Hello, unauthenticated user!</h1>
