@@ -46,10 +46,3 @@ class Booking(models.Model):
     def __str__(self):
         return f"Booking {self.id} by {self.user.username}"
 
-class Availability(models.Model):
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
-    date = models.DateField()
-    is_available = models.BooleanField(default=True)
-
-    def __str__(self):
-        return f"Availability for {self.room.number} on {self.date}"

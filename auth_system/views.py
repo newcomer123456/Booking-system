@@ -23,6 +23,7 @@ def register(request):
         context = {'form': form}
     )
 
+
 def loginview(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)

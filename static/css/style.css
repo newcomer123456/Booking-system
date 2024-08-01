@@ -39,3 +39,6 @@ button {
     border-color: #6c757d;
 }
 
+.container-fluid {
+    background-color: rgb(153, 188, 219);
+}

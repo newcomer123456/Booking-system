@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import RoomType, Hotel, Room, Booking, Availability
+from .models import RoomType, Hotel, Room, Booking
 
 # Реєстрація моделі RoomType
 @admin.register(RoomType)
@@ -31,10 +31,3 @@ class BookingAdmin(admin.ModelAdmin):
     list_filter = ('confirmed', 'start_time', 'end_time')
     date_hierarchy = 'start_time'
 
-# Реєстрація моделі Availability
-@admin.register(Availability)
-class AvailabilityAdmin(admin.ModelAdmin):
-    list_display = ('room', 'date', 'is_available')
-    search_fields = ('room__number', 'date')
-    list_filter = ('is_available', 'date')
-    list_editable = ('is_available',)

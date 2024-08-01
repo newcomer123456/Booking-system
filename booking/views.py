@@ -1,6 +1,13 @@
 from django.shortcuts import render, redirect
-from booking.models import Room, Booking, RoomType, Availability, Hotel
+from booking.models import Room, Booking, RoomType, Hotel
 from django.http import HttpResponse
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.utils.dateparse import parse_date 
+from datetime import datetime
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -14,12 +21,17 @@ def rooms_list(request):
     }
     return render(request, template_name="booking/rooms_list.html", context=context)
 
+@login_required
 def book_room(request):
     if request.method == 'POST':
         hotel_name = request.POST.get('hotel')
         room_number = request.POST.get('room-number')
         start_time = request.POST.get('start-time')
         end_time = request.POST.get('end-time')
+        start_time = datetime.strptime(start_time, '%Y-%m-%dT%H:%M') 
+        end_time = datetime.strptime(end_time, '%Y-%m-%dT%H:%M') 
+        start_time = timezone.make_aware(start_time , timezone.get_current_timezone()) 
+        end_time = timezone.make_aware(end_time , timezone.get_current_timezone()) 
 
         try:
             hotel = Hotel.objects.get(name=hotel_name)
@@ -38,12 +50,21 @@ def book_room(request):
             )
 
         try:
-            user = User.objects.get(id=request.user.id)
-        except User.DoesNotExist:
+            user = get_user_model().objects.get(id=request.user.id)
+        except get_user_model().DoesNotExist:
             return HttpResponse(
                 "User doesn't exist!",
                 status=404
             )
+        bookings = Booking.objects.filter(room=room)
+        for book in bookings:
+            if book.start_time >= end_time or book.end_time <= start_time:
+                pass
+            else:
+                return HttpResponse(
+                "This room is booked for the same hour.",
+                status=400
+                )
 
         booking = Booking.objects.create(
             user=user,
@@ -68,3 +89,13 @@ def booking_details(request, pk):
             "This booking doesn't exist!",
             status=404,
         )
+    
+@login_required
+def delete_user_bookings(request):
+    if request.method == 'POST':
+        user = request.user
+        Booking.objects.filter(user=user).delete()
+        messages.success(request, 'All your bookings have been deleted.')
+        return redirect('index')
+    
+    return render(request, 'booking/delete_bookings_confirm.html')
