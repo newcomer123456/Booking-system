@@ -16,7 +16,13 @@
                     <a class="nav-link" href="{% url 'index' %}">Homepage</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'delete_user_bookings' %}">Delete booking</a>
+                    <a class="nav-link" href="{% url 'delete_user_bookings' %}">Delete all bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'delete_user_booking' %}">Delete booking</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'bookings_list' %}">Your bookings</a>
                 </li>
             </ul>
         </div>

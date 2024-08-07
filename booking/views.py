@@ -99,3 +99,32 @@ def delete_user_bookings(request):
         return redirect('index')
     
     return render(request, 'booking/delete_bookings_confirm.html')
+
+@login_required
+def delete_user_booking(request):
+    if request.method == 'POST':
+        user = request.user
+        booking_id = request.POST.get('booking_id')
+        try:
+            booking = Booking.objects.get(id=booking_id)
+            if booking.user == user:
+                booking.delete()
+                messages.success(request, 'This booking has been deleted.')
+            else:
+                messages.error(request, 'This booking cannot be deleted because you do not own it.')
+        except Booking.DoesNotExist:
+            messages.error(request, 'Booking not found.')
+        return redirect('index')
+    
+    booking_id = request.GET.get('booking_id')
+    context = {'booking_id': booking_id}
+    return render(request, 'booking/delete_booking_confirm.html', context)
+
+def bookings_list(request):
+    user = request.user
+    user_bookings = Booking.objects.filter(user=user)
+    context = {
+        'user_bookings': user_bookings
+    }
+    return render(request, 'booking/bookings_list.html', context)
+

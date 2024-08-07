@@ -7,5 +7,7 @@
     <p><strong>Hotel:</strong> {{ booking.hotel.name }}</p>
     <p><strong>Room:</strong> {{ booking.room }}</p>
     <p><strong>Time range:</strong> {{ booking.start_time }} - {{ booking.end_time }}</p>
+    <img src="{{ booking.room.image.url }}" class="card-img-top" alt="Image of room #{{ booking.room.number }}">
+    <img src="{{ booking.hotel.image.url }}" class="card-img-top" alt="Image of hotel #{{ booking.hotel.name }}">
 </div>
 {% endblock %}

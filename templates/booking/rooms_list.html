@@ -7,12 +7,15 @@
         {% for room in rooms %}
         <div class="col-md-6 mb-4">
             <div class="card">
+                <img src="{{ room.image.url }}" class="card-img-top" alt="Image of room #{{ room.number }}">
+                <img src="{{ room.hotel.image.url }}" class="card-img-top" alt="Image of hotel #{{ room.hotel.name }}">
                 <div class="card-body">
                     <h5 class="card-title">Room #{{ room.number }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Capacity: {{ room.capacity }}</h6>
-                    <p class="card-text">Hotel: {{ room.hotel.name }}</p>
+                    <h6 class="card-text">Hotel: {{ room.hotel.name }}</h6>
                     <p class="card-text">Location: {{ room.location }}</p>
                     <p class="card-text">Description: {{ room.description }}</p>
+                    <p class="card-text">ID: {{ room.id }}</p>
                 </div>
             </div>
         </div>

@@ -1,0 +1,32 @@
+{% extends "booking/base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Your Bookings</h2>
+    </div>
+    <div class="card-body">
+        {% if user_bookings %}
+            <ul class="list-group">
+                {% for booking in user_bookings %}
+                    <li class="list-group-item">
+                        <h5><strong>Hotel:</strong> {{ booking.hotel.name }}</h5>
+                        <h6><strong>Room:</strong> {{ booking.room.number }}</h6>
+                        <h6><strong>Booking_id:</strong> {{ booking.id }}</h6>
+                        <p><strong>Date:</strong> {{ booking.start_time }} - {{ booking.end_time }}</p>
+                        <p><strong>Hotel location:</strong> {{ booking.hotel.location }}</p>
+                        <p><strong>Hotel description:</strong> {{ booking.hotel.description }}</p>
+                        <p><strong>Room type:</strong> {{ booking.room.type }}</p>
+                        <p><strong>Room capacity:</strong> {{ booking.room.capacity }}</p>
+                        <p><strong>Room price:</strong> {{ booking.room.price }}</p>
+                        <p><strong>Room location:</strong> {{ booking.room.location }}</p>
+                        <p><strong>Room description:</strong> {{ booking.room.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have no bookings.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
